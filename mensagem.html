@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mensagem de Amor</title>
+  <link rel="stylesheet" href="css/mensagem.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+    <h1>Meu amor por você cresce a cada dia que passa, e mesmo que um dia o tempo deixe de ser contado, ainda assim esse amor permanecerá, para todo sempre.</h1>
+    <p>nosso amor tem:</p>
+    <p id="contador"></p>
+  </div>
+
+  <script>
+    const androidImages = [
+  "mensagem/android1.png",
+  "mensagem/android2.png",
+  "mensagem/android3.png",
+  "mensagem/android4.png",
+  "mensagem/android5.png",
+  "mensagem/android6.png",
+  "mensagem/android7.png"
+];
+
+const desktopImages = [
+  "mensagem/desktop1.png",
+  "mensagem/desktop2.png",
+  "mensagem/desktop3.png",
+  "mensagem/desktop4.png",
+  "mensagem/desktop5.png",
+  "mensagem/desktop6.png",
+  "mensagem/desktop7.png"
+];
+
+
+let currentIndex = 0;
+const body = document.body;
+
+function isMobile() {
+  return window.innerWidth <= 768;
+}
+
+function updateBackground() {
+  const images = isMobile() ? androidImages : desktopImages;
+  const imageUrl = images[currentIndex];
+
+  const img = new Image();
+  img.src = imageUrl;
+  img.onload = () => {
+    body.style.backgroundImage = `url('${imageUrl}')`;
+    currentIndex = (currentIndex + 1) % images.length;
+  };
+  img.onerror = () => {
+    console.warn("Erro ao carregar imagem:", imageUrl);
+    currentIndex = (currentIndex + 1) % images.length;
+  };
+}
+
+updateBackground();
+let slideshowInterval = setInterval(updateBackground, 5000);
+
+window.addEventListener('resize', () => {
+  clearInterval(slideshowInterval);
+  currentIndex = 0;
+  updateBackground();
+  slideshowInterval = setInterval(updateBackground, 3000);
+});
+//////////////////////////////////////////////////////
+
+    const inicio = new Date("2020-02-13T00:00:00");
+
+    function atualizarContador() {
+      const agora = new Date();
+
+      // Diferença em datas para cálculo realista de anos, meses e dias
+      let anos = agora.getFullYear() - inicio.getFullYear();
+      let meses = agora.getMonth() - inicio.getMonth();
+      let dias = agora.getDate() - inicio.getDate();
+
+      if (dias < 0) {
+        meses--;
+        const mesAnterior = new Date(agora.getFullYear(), agora.getMonth(), 0);
+        dias += mesAnterior.getDate();
+      }
+
+      if (meses < 0) {
+        anos--;
+        meses += 12;
+      }
+
+      // Diferença em milissegundos para segundos/minutos/horas precisos
+      const diffMs = agora - inicio;
+      const diffSegundos = Math.floor(diffMs / 1000);
+      const segundos = diffSegundos % 60;
+      const minutos = Math.floor((diffSegundos / 60)) % 60;
+      const horas = Math.floor((diffSegundos / 3600)) % 24;
+
+      document.getElementById("contador").innerText =
+        `${anos} ano(s), ${meses} mês(es), ${dias} dia(s), ` +
+        `${horas} hora(s), ${minutos} minuto(s), ${segundos} segundo(s) `;
+    }
+
+    atualizarContador();
+    setInterval(atualizarContador, 1000);
+  </script>
+</body>
+</html>

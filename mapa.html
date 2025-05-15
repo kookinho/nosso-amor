@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <title>Onde nos estivemos 💕</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="css/mapa.css" />
+
+</head>
+<body>
+  <img id="logo-topo" src="locais/logo-onde-estivemos.png" alt="Logo Onde Estivemos" />
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    var map = L.map('map').setView([-3.763, -38.58], 11);
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://carto.com/">CartoDB</a>',
+      subdomains: 'abcd',
+      maxZoom: 19
+    }).addTo(map);
+
+    const locais = [
+      { nome: "Beira Mar", coords: [-3.717000, -38.516506], img: "locais/beira-mar.jpg" },
+      { nome: "Parque do Cocó", coords: [-3.744, -38.485], img: "locais/parque-coco.jpg" },
+      { nome: "Benfica", coords: [-3.739, -38.540], img: "locais/benfica.jpg" },
+      { nome: "Sesc Iparana", coords: [-3.689, -38.627], img: "locais/sesc-iparana.jpg" },
+      { nome: "north Shopping", coords: [-3.735, -38.567], img: "locais/north-shopping.jpg" },
+      { nome: "Beach Park", coords: [-3.843859, -38.390452], img: "locais/beach-park.jpg" },
+      { nome: "Casa da Analia", coords: [-3.777941, -38.617801], img: "locais/casa-analia.jpg" },
+      { nome: "Casa da Laís", coords: [-3.782162, -38.602675], img: "locais/casa-lais.jpg" },
+      { nome: "Casa do Isaac", coords: [-3.775064, -38.589941], img: "locais/casa-isaac.jpg" },
+      { nome: "Brisas", coords: [-3.775007, -38.587192], img: "locais/brisas.jpg" },
+      { nome: "Casa antiga da Laís", coords: [-3.783474, -38.603078], img: "locais/casa-antiga.jpeg" },
+      { nome: "Casa da Sarah", coords: [-3.766, -38.569], img: "locais/casa-sarah.jpg" },
+      { nome: "Jim Willson", coords: [-3.782742, -38.581166], img: "locais/jim-willson.jpg" },
+      { nome: "Praia do Beach Park", coords: [-3.846896, -38.387296], img: "locais/praia-beach.jpg" },
+      { nome: "north shoping joquei", coords: [-3.764657, -38.574619], img: "locais/joquei.jpg" },
+      { nome: "Cumbuco", coords: [-3.632299, -38.715014], img: "locais/cumbuco.jpg" },
+      { nome: "Casa da vó da Laís", coords: [-3.783155, -38.604006], img: "locais/casa-vo-lais.jpg" },
+      { nome: "Maranguape", coords: [-4.016, -38.712], img: "locais/maranguape.jpg" },
+      { nome: "Praça do João XXIII", coords: [-3.773617, -38.579288], img: "locais/praca-joao-xxiii.jpg" },
+      { nome: "Queimadas", coords: [-5.711, -37.741], img: "locais/queimadas.jpg" }
+    ];
+
+    const iconePersonalizado = L.icon({
+      iconUrl: 'locais/marcador.png',
+      iconSize: [60, 60],
+      iconAnchor: [30, 30], // centralizado
+      popupAnchor: [0, 150]  // popup ao lado direito
+    });
+
+    locais.forEach(local => {
+      L.marker(local.coords, { icon: iconePersonalizado }).addTo(map)
+        .bindPopup(`<strong>${local.nome}</strong><br><img class="popup-img" src="${local.img}" alt="Foto em ${local.nome}" />`);
+    });
+
+    map.on('popupopen', function (e) {
+  const marker = e.popup._source;
+  const latLng = marker.getLatLng();
+
+  setTimeout(() => {
+    const popupEl = document.querySelector('.leaflet-popup-content-wrapper');
+
+    if (popupEl) {
+      const popupHeight = popupEl.offsetHeight;
+      const verticalOffset = popupHeight / 4; 
+
+      const point = map.latLngToContainerPoint(latLng).subtract([0, verticalOffset]);
+      const targetLatLng = map.containerPointToLatLng(point);
+
+      map.panTo(targetLatLng, {
+        animate: true,
+        duration: 0.5
+      });
+    }
+  }, 50);
+});
+
+  </script>
+</body>
+</html>
