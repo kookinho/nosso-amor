@@ -87,8 +87,8 @@ body {
       left: 0;
       width: 100%;
       height: 100%;
-      background: #111;
-      color: #fff;
+      background: #fbf3e8;
+      color: #d85641;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -97,8 +97,8 @@ body {
     }
 
     .loader {
-      border: 6px solid #ccc;
-      border-top: 6px solid #f06292;
+      border: 6px solid #d85641;
+      border-top: 6px solid #d85641;
       border-radius: 50%;
       width: 60px;
       height: 60px;
