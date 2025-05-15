@@ -7,6 +7,12 @@
   <link rel="stylesheet" href="css/index.css" />
 </head>
 <body>
+
+  <div id="preloader">
+    <div class="loader"></div>
+    <p>Carregando o site...</p>
+  </div>
+
   <div class="container">
     <div class="image-wrapper"><img src="menu.png" alt="menu" class="menu">
       <div class="button-container">
@@ -16,5 +22,15 @@
       </div>
     </div>
   </div>
+  
+  <script>
+    window.addEventListener("load", function () {
+      const preloader = document.getElementById("preloader");
+      const conteudo = document.getElementById("conteudo");
+      
+      preloader.style.display = "none";
+      conteudo.style.display = "block";
+    });
+  </script>
 </body>
 </html>
