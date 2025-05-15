@@ -8,10 +8,10 @@
 </head>
 <body>
 
-  <div id="preloader">
-    <div class="loader"></div>
-    <p>Carregando o site...</p>
-  </div>
+ <div id="preloader">
+  <div class="loader"></div>
+  <p>Carregando todo o site com amor ❤️...</p>
+</div>
 
   <div class="container">
     <div class="image-wrapper"><img src="menu.png" alt="menu" class="menu">
@@ -22,15 +22,51 @@
       </div>
     </div>
   </div>
-  
+
   <script>
-    window.addEventListener("load", function () {
-      const preloader = document.getElementById("preloader");
-      const conteudo = document.getElementById("conteudo");
-      
-      preloader.style.display = "none";
-      conteudo.style.display = "block";
-    });
-  </script>
+  const imagens = [
+    // jornal/
+    "jornal/fundo.jpg", "jornal/jornalgrande.jpg", "jornal/jornalpequeno.jpg",
+
+    // locais/
+    "locais/beach-park.jpg", "locais/beira-mar.jpg", "locais/benfica.jpg",
+    "locais/brisas.jpg", "locais/casa-analia.jpg", "locais/casa-antiga.jpg",
+    "locais/casa-isaac.jpg", "locais/casa-lais.jpg", "locais/casa-sarah.jpg",
+    "locais/casa-vo-lais.jpg", "locais/cumbuco.jpg", "locais/jim-willson.jpg",
+    "locais/joquei.jpg", "locais/logo-onde-estivemos.jpg", "locais/maracana.jpg",
+    "locais/marcador.jpg", "locais/north-shopping.jpg", "locais/parque-coco.jpg",
+    "locais/praca-joao-xxiii.jpg", "locais/praia-beach.jpg", "locais/queimadas.jpg",
+    "locais/sesc-iparana.jpg",
+
+    // mensagem/
+    "mensagem/android1.jpg", "mensagem/android2.jpg", "mensagem/android3.jpg",
+    "mensagem/android4.jpg", "mensagem/android5.jpg", "mensagem/android6.jpg",
+    "mensagem/android7.jpg", "mensagem/desktop1.jpg", "mensagem/desktop2.jpg",
+    "mensagem/desktop3.jpg", "mensagem/desktop4.jpg", "mensagem/desktop5.jpg",
+    "mensagem/desktop6.jpg", "mensagem/desktop7.jpg",
+
+    // menu principal
+    "menu.png"
+  ];
+
+  let carregadas = 0;
+
+  function carregarTudo(imagens, callback) {
+    for (let i = 0; i < imagens.length; i++) {
+      const img = new Image();
+      img.src = imagens[i];
+      img.onload = img.onerror = () => {
+        carregadas++;
+        if (carregadas === imagens.length) {
+          callback();
+        }
+      };
+    }
+  }
+
+  carregarTudo(imagens, () => {
+    document.body.classList.add("loaded");
+  });
+</script>
 </body>
 </html>
