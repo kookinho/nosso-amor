@@ -97,7 +97,7 @@ body {
     }
 
     .loader {
-      border: 6px solid #d85641;
+      border: 6px solid #ccc;
       border-top: 6px solid #d85641;
       border-radius: 50%;
       width: 60px;
